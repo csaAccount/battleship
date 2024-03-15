@@ -1,31 +1,24 @@
+
 import java.util.ArrayList;
 
 public class Board {
+    private String symbol;
+
+    public Board(String symbol) {
+        this.symbol = symbol;
+    }
+
+    public String getSymbol() {
+        return symbol;
+    }
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    public void setBoard(){
+    public void setBoard() {
         String[] letters = {"A", "B", "C", "D", "E", "F", "G", "H", "I"};
         int num = 1;
         int idx = 0;
-        for (String[] rows: board){
-            for(String col: rows){
+        for (String[] rows : board) {
+            for (String col : rows) {
                 col = letters[idx] + num;
             }
             num++;
@@ -33,3 +26,5 @@ public class Board {
         }
     }
 }
+
+
