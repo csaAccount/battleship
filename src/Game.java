@@ -19,19 +19,17 @@ public class Game {
                 board[i][j] = x;
             }
         }
+        Board x = new Board(" ");
+        board[0][10] = x;
     }
 
-    public void setCoord() {
+    public void setCord() {
         String[] letters = {"A", "B", "C", "D", "E", "F", "G", "H", "I"};
-        int
+        String[] numbers = {"1", "2", "3", "4", "5", "6", "7", "8", "9"};
         int num = 1;
         int idx = 0;
-        for (int i = 0; i < board.length; i++) {
-            for (int j = 0; j < board[0].length; j++) {
-                board[i][j] = letters[idx] + num;
-            }
-            num++;
-            idx++;
+        for (int i = 1; i < board[0].length; i++) {
+            board[10][i] = new Board(numbers[i-1]);
         }
     }
 
