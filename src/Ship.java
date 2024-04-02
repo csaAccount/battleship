@@ -1,22 +1,36 @@
 public class Ship{
 
-    public Ship(){
+    private int startX;
+    private int startY;
+    private boolean horizontal;
+    private boolean[] hit;
 
+    public Ship(int startX, int startY, boolean horizontal) {
+        this.startX = startX;
+        this.startY = startY;
+        this.horizontal = horizontal;
+        hit = new boolean[3];
     }
 
-    private boolean canPlaceShip(Board[][] board, int y, int z) {
-        for (int i = 0; i < board.length; i++){
-            for (int j = 0; j< board[0].length;j++){
-                if(board[y][z].equals("\\uD83D\\uDEE5")){
-                    return false;
-                }
-                if( y > board.length - 1 || z > board[0].length - 1){
-                    return false;
-                }
+    public boolean isHorizontal() {
+        return horizontal;
+    }
+
+    public int getStartX() {
+        return startX;
+    }
+
+    public int getStartY() {
+        return startY;
+    }
+
+    public boolean isSunk() {
+        for (boolean isHit : hit) {
+            if (!isHit) {
+                return false;
             }
         }
         return true;
-
     }
 }
 
