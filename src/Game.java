@@ -54,4 +54,44 @@ public class Game {
         }
         System.out.println("Game Over!");
     }
+
+
+    private void takeTurn(Player currentPlayer, Player otherPlayer) {
+        currentPlayer.printGuessBoard();
+        System.out.println(currentPlayer.getName() + ", make a guess (e.g., A1): / Or type OWN to view your own board");
+        String guess = scanner.nextLine();
+        if(guess.equals("OWN") || guess.equals("own")){
+            for(Player player: players){
+                if(player == currentPlayer){
+                    player.printBoard();
+                }
+            }
+            System.out.println(currentPlayer.getName() + ", make a guess (e.g., A1): / Or type OWN to view your own board");
+            guess = scanner.nextLine();
+        }
+        /* Reference for parsing:  https://www.tutorialspoint.com/java/number_parseint.htm
+         */
+        int x =  Integer.parseInt(guess.substring(1));
+        int y = guess.charAt(0) - 'A' + 1;
+        currentPlayer.makeGuess(x, y);
+
+    }
+
+    private void switchPlayer() {
+        currentPlayerIndex = 1 - currentPlayerIndex;
+    }
+
+    private void isGameOver() {
+        for (Player player : players) {
+            if (player.allShipsSunk()) {
+                winner = player.getName();
+                won = true;
+            }
+        }
+    }
+
+    private void determineWinner(Player player){
+        System.out.println("Congratulations " + player.getName() + "! You WON!!!");
+        System.exit(0);
+    }
 }
