@@ -12,7 +12,7 @@ public class Player{
         guessBoard = new Board[10][10];
         setBoard();
         guessBoard();
-        ships = new Ship[3]; // 3 ships for simplicity
+        ships = new Ship[3]; // 3 ships for simplicity; standard game has 5
     }
 
     public void setBoard() {
@@ -80,7 +80,7 @@ public class Player{
             int startY = random.nextInt(1, 10); // Start of Ship (Y coord)
             boolean horizontal = random.nextBoolean(); // Randomly chooses if the ship will be horizontally or vertically placed
             if (canPlaceShip(startX, startY, horizontal)) {
-                ships[i] = new Ship("⛵", startX, startY, horizontal);
+                ships[i] = new Ship("\uD83D\uDEA2", startX, startY, horizontal);
                 placeShip(ships[i]);
             } else {
                 i--;
@@ -134,6 +134,13 @@ public class Player{
     public void makeGuess(int x, int y) {
         if (board[x][y].hasShip()) {
             guessBoard[x][y].setHit(true);
+            Board hit = new Board("❌");
+            guessBoard[x][y] = hit;
+            Board sunk = new Board("\uD83D\uDD25");
+            board[x][y] = sunk;
+        }else if(!board[x][y].hasShip()){
+            Board miss = new Board("⭕");
+            guessBoard[x][y] = miss;
         }
     }
 

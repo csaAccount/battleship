@@ -6,7 +6,7 @@ public class Ship extends Board{
     private boolean[] hit;
 
     public Ship(String symbol, int startX, int startY, boolean horizontal) {
-        super(symbol);
+        super("\uD83D\uDEA2");
         this.startX = startX;
         this.startY = startY;
         this.horizontal = horizontal;
@@ -32,6 +32,18 @@ public class Ship extends Board{
             }
         }
         return true;
+    }
+
+    @Override
+    public String getSymbol() {
+        if (isHit()) {
+            if (hasShip()) {
+                return "❌";
+            } else {
+                return "⭕";
+            }
+        }
+        return "";
     }
 }
 
