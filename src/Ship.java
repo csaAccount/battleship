@@ -1,11 +1,12 @@
-public class Ship{
+public class Ship extends Board{
 
     private int startX;
     private int startY;
     private boolean horizontal;
     private boolean[] hit;
 
-    public Ship(int startX, int startY, boolean horizontal) {
+    public Ship(String symbol, int startX, int startY, boolean horizontal) {
+        super(symbol);
         this.startX = startX;
         this.startY = startY;
         this.horizontal = horizontal;

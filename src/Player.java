@@ -80,7 +80,7 @@ public class Player{
             int startY = random.nextInt(1, 10); // Start of Ship (Y coord)
             boolean horizontal = random.nextBoolean(); // Randomly chooses if the ship will be horizontally or vertically placed
             if (canPlaceShip(startX, startY, horizontal)) {
-                ships[i] = new Ship(startX, startY, horizontal);
+                ships[i] = new Ship("⛵", startX, startY, horizontal);
                 placeShip(ships[i]);
             } else {
                 i--;

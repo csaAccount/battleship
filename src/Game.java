@@ -1,101 +1,30 @@
 import java.util.Scanner;
 public class Game {
     private Scanner scanner;
+    private Player[] players;
+    private int currentPlayerIndex;
+    private String winner;
+    private boolean won;
     private Board[][] board;
-    private Board[][] guessBoard;
-    private Player player;
-    private String playerLetter;
-    private int playerNum;
 
     public Game() {
-        setBoard();
-        guessBoard();
-        scanner  = new Scanner(System.in);
+        scanner = new Scanner(System.in);
+        won = false;
     }
 
-    public void setBoard() {
-        board = new Board[10][10];
-        Board blank = new Board("|");
-        board[0][0] = blank;
-        String[] letters = {" A", " B", " C", " D ", " E", " F", " G", " H", " I"};
-        int idx = 0;
-        for (int j = 1; j < board[0].length; j++) {
-            Board x = new Board(letters[idx]);
-            board[0][j] = x;
-            idx++;
-        }
-
-        int num = 1;
-        for (int i = 1; i < board.length; i++) {
-            Board x = new Board("" + num);
-            board[i][0] = x;
-            num++;
-        }
-
-        for (int i = 1; i < board.length; i++) {
-            for (int j = 1; j < board[0].length; j++) {
-                Board x = new Board("\uD83C\uDF05");
-                board[i][j] = x;
-            }
-        }
-
+    private void createPlayer() {
+        players = new Player[2];
+        System.out.print("Player1 enter your name: ");
+        String name1 = scanner.nextLine();
+        players[0] = new Player(name1);
+        System.out.print("Player2 enter your name: ");
+        String name2 = scanner.nextLine();
+        players[1] = new Player(name2);
+        currentPlayerIndex = 0;
+        winner = "";
     }
 
-
-    public void guessBoard() {
-        guessBoard = new Board[10][10];
-        Board blank = new Board("|");
-        board[0][0] = blank;
-        String[] letters = {" A", " B", " C", " D ", " E", " F", " G", " H", " I"};
-        int idx = 0;
-        for (int j = 1; j < board[0].length; j++) {
-            Board x = new Board(letters[idx]);
-            guessBoard[0][j] = x;
-            idx++;
-        }
-
-        int num = 1;
-        for (int i = 1; i < board.length; i++) {
-            Board x = new Board("" + num);
-            guessBoard[i][0] = x;
-            num++;
-        }
-
-        for (int i = 1; i < board.length; i++) {
-            for (int j = 1; j < board[0].length; j++) {
-                Board x = new Board("\uD83C\uDF05");
-                guessBoard[i][j] = x;
-            }
-        }
-
-    }
-
-
-
-    public void setCord(Board[][] board) {
-        String[] letters = {"A", "B", "C", "D", "E", "F", "G", "H", "I"};
-        String[] numbers = {"1", "2", "3", "4", "5", "6", "7", "8", "9"};
-        int num = 0;
-        int idx = 0;
-
-        for (int j = 1; j < board[0].length; j++) {
-            Board x = new Board(letters[idx]);
-            board[0][j] = x;
-            idx++;
-        }
-
-        Board c = new Board("?");
-        board[0][0] = c;
-
-
-        for (int i = 1; i < board.length; i++) {
-            Board x = new Board(numbers[num]);
-            board[i][0] = x;
-            num++;
-        }
-    }
-
-    public void printBoard() {
+    private void printBoard() {
         for (Board[] row : board) {
             for (Board element : row) {
                 System.out.print(element.getSymbol());
@@ -105,5 +34,24 @@ public class Game {
     }
 
 
+    public void play() {
 
+        for (Player player : players) {
+            player.placeShips();
+
+        }
+
+        while (!won) {
+            Player currentPlayer = players[currentPlayerIndex];
+            Player otherPlayer = players[1 - currentPlayerIndex];
+            System.out.println();
+            System.out.println();
+            System.out.println();
+            System.out.println(currentPlayer.getName() + ", it's your turn. " + otherPlayer.getName() + ", look away. ");
+            takeTurn(currentPlayer, otherPlayer);
+            isGameOver();
+            switchPlayer();
+        }
+        System.out.println("Game Over!");
+    }
 }
