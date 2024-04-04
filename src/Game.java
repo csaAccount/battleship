@@ -3,36 +3,20 @@ public class Game {
     private Scanner scanner;
     private Player[] players;
     private int currentPlayerIndex;
+    private String player1Name;
+    private String player2Name;
     private String winner;
     private boolean won;
-    private Board[][] board;
 
-    public Game() {
+    public Game(String player1Name, String player2Name) {
         scanner = new Scanner(System.in);
-        won = false;
-    }
-
-    private void createPlayer() {
         players = new Player[2];
-        System.out.print("Player1 enter your name: ");
-        String name1 = scanner.nextLine();
-        players[0] = new Player(name1);
-        System.out.print("Player2 enter your name: ");
-        String name2 = scanner.nextLine();
-        players[1] = new Player(name2);
+        players[0] = new Player(player1Name);
+        players[1] = new Player(player2Name);
         currentPlayerIndex = 0;
         winner = "";
+        won = false;
     }
-
-    private void printBoard() {
-        for (Board[] row : board) {
-            for (Board element : row) {
-                System.out.print(element.getSymbol());
-            }
-            System.out.println();
-        }
-    }
-
 
     public void play() {
 
@@ -41,21 +25,19 @@ public class Game {
 
         }
 
-        while (!won) {
+        while (won == false) {
             Player currentPlayer = players[currentPlayerIndex];
             Player otherPlayer = players[1 - currentPlayerIndex];
             System.out.println();
             System.out.println();
             System.out.println();
-            System.out.println(currentPlayer.getName() + ", it's your turn. " + otherPlayer.getName() + ", look away. ");
+            System.out.println(currentPlayer.getName() + ", it's your turn. "  + otherPlayer.getName() + ", look away. ");
             takeTurn(currentPlayer, otherPlayer);
             isGameOver();
             switchPlayer();
         }
         System.out.println("Game Over!");
     }
-
-
     private void takeTurn(Player currentPlayer, Player otherPlayer) {
         currentPlayer.printGuessBoard();
         System.out.println(currentPlayer.getName() + ", make a guess (e.g., A1): / Or type OWN to view your own board");
