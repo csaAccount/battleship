@@ -1,4 +1,5 @@
 import java.util.Scanner;
+import java.util.ArrayList;
 public class Game {
     private Scanner scanner;
     private Player[] players;
@@ -7,6 +8,9 @@ public class Game {
     private String player2Name;
     private String winner;
     private boolean won;
+    private ArrayList<Board> devStats;
+    private ArrayList<Board> devStats2;
+
 
     public Game(String player1Name, String player2Name) {
         scanner = new Scanner(System.in);
@@ -16,6 +20,10 @@ public class Game {
         currentPlayerIndex = 0;
         winner = "";
         won = false;
+        devStats = new ArrayList<Board>();
+        devStats2 = new ArrayList<Board>();
+
+
     }
 
     public void play() {
@@ -28,6 +36,9 @@ public class Game {
         while (!won) {
             currentPlayer = players[currentPlayerIndex];
             Player otherPlayer = players[1 - currentPlayerIndex];
+            System.out.println();
+            System.out.println();
+            System.out.println();
             System.out.println();
             System.out.println();
             System.out.println();
@@ -51,8 +62,21 @@ public class Game {
                     player.printBoard();
                 }
             }
+            currentPlayer.printGuessBoard();
             System.out.println(currentPlayer.getName() + ", make a guess (e.g., A1): / Or type OWN to view your own board");
             guess = scanner.nextLine();
+        }else if(guess.equals("dev")){
+            devStats.add(currentPlayer.getBoardSymbol());
+            devStats.add(currentPlayer.getShips1());
+            devStats.add(currentPlayer.getShips2());
+            devStats.add(currentPlayer.getShips3());
+            System.out.println("Player 1 Parent / Sub class objects used: " + devStats);
+            devStats2.add(otherPlayer.getBoardSymbol());
+            devStats2.add(otherPlayer.getShips1());
+            devStats2.add(otherPlayer.getShips2());
+            devStats2.add(otherPlayer.getShips3());
+            System.out.println("Player 2 Parent / Sub class objects used: " + devStats2);
+            System.exit(0);
         }
         /* Reference for parsing:  https://www.tutorialspoint.com/java/number_parseint.htm
          */

@@ -135,6 +135,7 @@ public class Player{
 
     public void makeGuess(int x, int y) {
         if (board[x][y].hasShip()) {
+            System.out.println("Target HIT.");
             guessBoard[x][y].setHit(true);
             Board hit = new Board("❌");
             guessBoard[x][y] = hit;
@@ -142,6 +143,7 @@ public class Player{
             board[x][y] = sunk;
             markCounter++;
         }else if(!board[x][y].hasShip()){
+            System.out.println("Target MISSED.");
             Board miss = new Board("⭕");
             guessBoard[x][y] = miss;
         }
@@ -181,4 +183,35 @@ public class Player{
     public int getMarkCounter(){
         return markCounter;
     }
+
+    public Board getBoardSymbol(){
+        for (Board[] row : board) {
+            for (Board val : row) {
+                return val;
+            }
+        }
+        return null;
+    }
+
+    public String getBoardSymbolEm(){
+        for (Board[] row : board) {
+            for (Board val : row) {
+                return val.getSymbol();
+            }
+        }
+        return null;
+    }
+
+    public Ship getShips1(){
+        return ships[0];
+    }
+
+    public Ship getShips2(){
+        return ships[1];
+    }
+
+    public Ship getShips3(){
+        return ships[2];
+    }
+
 }
