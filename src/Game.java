@@ -24,9 +24,9 @@ public class Game {
             player.placeShips();
 
         }
-
-        while (won == false) {
-            Player currentPlayer = players[currentPlayerIndex];
+        Player currentPlayer = players[currentPlayerIndex];
+        while (!won) {
+            currentPlayer = players[currentPlayerIndex];
             Player otherPlayer = players[1 - currentPlayerIndex];
             System.out.println();
             System.out.println();
@@ -34,9 +34,12 @@ public class Game {
             System.out.println(currentPlayer.getName() + ", it's your turn. "  + otherPlayer.getName() + ", look away. ");
             takeTurn(currentPlayer, otherPlayer);
             isGameOver();
+            if(won == true){
+                break;
+            }
             switchPlayer();
         }
-        System.out.println("Game Over!");
+        System.out.println("Game Over! " + currentPlayer.getName() + " WINS \uD83C\uDFC6");
     }
     private void takeTurn(Player currentPlayer, Player otherPlayer) {
         currentPlayer.printGuessBoard();
@@ -44,7 +47,7 @@ public class Game {
         String guess = scanner.nextLine();
         if(guess.equals("OWN") || guess.equals("own")){
             for(Player player: players){
-                if(player == currentPlayer){
+                if(player != currentPlayer){
                     player.printBoard();
                 }
             }
@@ -65,7 +68,7 @@ public class Game {
 
     private void isGameOver() {
         for (Player player : players) {
-            if (player.allShipsSunk()) {
+            if (player.getMarkCounter() == 9) {
                 winner = player.getName();
                 won = true;
             }

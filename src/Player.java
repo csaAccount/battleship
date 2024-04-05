@@ -5,6 +5,7 @@ public class Player{
     private Board[][] board;
     private Board[][] guessBoard;
     private Ship[] ships;
+    private int markCounter;
 
     public Player(String name) {
         this.name = name;
@@ -13,6 +14,7 @@ public class Player{
         setBoard();
         guessBoard();
         ships = new Ship[3]; // 3 ships for simplicity; standard game has 5
+        markCounter = 0; //Counts the number of hit places on the board (9 total needed to win)
     }
 
     public void setBoard() {
@@ -138,6 +140,7 @@ public class Player{
             guessBoard[x][y] = hit;
             Board sunk = new Board("\uD83D\uDD25");
             board[x][y] = sunk;
+            markCounter++;
         }else if(!board[x][y].hasShip()){
             Board miss = new Board("⭕");
             guessBoard[x][y] = miss;
@@ -156,7 +159,7 @@ public class Player{
     }
 
     public void printBoard() {
-        System.out.println("Own Board for " + name + ":");
+        System.out.println("Own Board: ");
         for (Board[] row : board) {
             for (Board val : row) {
                 System.out.print(val.getSymbol() + " ");
@@ -173,5 +176,9 @@ public class Player{
             }
         }
         return true;
+    }
+
+    public int getMarkCounter(){
+        return markCounter;
     }
 }
