@@ -30,9 +30,9 @@ class Board {
     public String getSymbol() {
         if (isHit) {
             if (hasShip) {
-                return "❌";
+                return "hit";
             } else {
-                return "⭕";
+                return "miss";
             }
         } else {
             return symbol;
